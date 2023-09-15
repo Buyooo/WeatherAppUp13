@@ -1,6 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
-using WeatherAppUp13.Models;
 using WeatherAppUp13.Services;
 
 namespace WeatherAppUp13.Controllers
@@ -14,6 +12,13 @@ namespace WeatherAppUp13.Controllers
         private readonly IAddressCoordinatesParser _addressCoordinatesParser;
         private readonly ILogger<GeocodingController> _logger;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="GeocodingController"/> class.
+        /// </summary>
+        /// <param name="geocodingService">The geocoding service.</param>
+        /// <param name="logger">The logger.</param>
+        /// <param name="weatherService">The weather service.</param>
+        /// <param name="addressCoordinatesParser">The address coordinates parser.</param>
         public GeocodingController(IGeocodingService geocodingService, ILogger<GeocodingController> logger, IWeatherService weatherService, IAddressCoordinatesParser addressCoordinatesParser)
         {
             _geocodingService = geocodingService ?? throw new ArgumentNullException(nameof(geocodingService));
@@ -22,6 +27,11 @@ namespace WeatherAppUp13.Controllers
             _logger = logger;            
         }
 
+        /// <summary>
+        /// Retrieves a 7-day weather forecast based on the provided address.
+        /// </summary>
+        /// <param name="address">The address to geocode and retrieve a forecast for.</param>
+        /// <returns>A JSON response containing the 7-day weather forecast.</returns>
         [HttpGet("Get7DayForecast")]
         public async Task<IActionResult> Get7DayForecast(string address)
         {
@@ -79,6 +89,11 @@ namespace WeatherAppUp13.Controllers
             }
         }
 
+        /// <summary>
+        /// Geocodes a one-line address.
+        /// </summary>
+        /// <param name="address">The one-line address to geocode.</param>
+        /// <returns>A JSON response containing geocoding information.</returns>
         [HttpGet("GeocodeOneLineAddress")]
         public async Task<IActionResult> GeocodeOneLineAddress(string address)
         {
@@ -105,8 +120,15 @@ namespace WeatherAppUp13.Controllers
             }
         }
 
+        /// <summary>
+        /// Geocodes an address using individual address components.
+        /// </summary>
+        /// <param name="street">The street address.</param>
+        /// <param name="city">The city.</param>
+        /// <param name="state">The state.</param>
+        /// <param name="zip">The ZIP code.</param>
+        /// <returns>A JSON response containing geocoding information.</returns>
         [HttpGet("GeocodeAddress")]
-        [HttpGet]
         public async Task<IActionResult> GeocodeAddress(string? street = null, string? city = null, string? state = null, string? zip = null)
         {
             if (string.IsNullOrEmpty(street) && string.IsNullOrEmpty(city) && string.IsNullOrEmpty(state) && string.IsNullOrEmpty(zip))

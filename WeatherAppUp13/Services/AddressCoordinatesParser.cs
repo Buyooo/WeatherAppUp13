@@ -61,31 +61,38 @@ namespace WeatherAppUp13.Services
 
         public ForecastUrlInfo ExtractForecastUrlInfo(string url)
         {
-            // Split the URL by '/' to get individual parts
-            string[] urlParts = url.Split('/');
-
-            if (urlParts.Length >= 4)
+            try
             {
-                // The office is the third part of the URL
-                string office = urlParts[4];
+                // Split the URL by '/' to get individual parts
+                string[] urlParts = url.Split('/');
 
-                // The gridX and gridY are the fourth part of the URL, split by ','
-                string[] gridParts = urlParts[5].Split(',');
-
-                if (gridParts.Length == 2 && int.TryParse(gridParts[0], out int gridX) && int.TryParse(gridParts[1], out int gridY))
+                if (urlParts.Length >= 4)
                 {
-                    // Create and return the ForecastUrlInfo object
-                    return new ForecastUrlInfo
-                    {
-                        Office = office,
-                        GridX = gridX,
-                        GridY = gridY
-                    };
-                }
-            }
+                    // The office is the third part of the URL
+                    string office = urlParts[4];
 
-            // Return null if parsing fails
-            return null;
+                    // The gridX and gridY are the fourth part of the URL, split by ','
+                    string[] gridParts = urlParts[5].Split(',');
+
+                    if (gridParts.Length == 2 && int.TryParse(gridParts[0], out int gridX) && int.TryParse(gridParts[1], out int gridY))
+                    {
+                        // Create and return the ForecastUrlInfo object
+                        return new ForecastUrlInfo
+                        {
+                            Office = office,
+                            GridX = gridX,
+                            GridY = gridY
+                        };
+                    }
+                }
+
+                // Return null if parsing fails
+                return null;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
     }
 }

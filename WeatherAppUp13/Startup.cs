@@ -1,4 +1,6 @@
-﻿using WeatherAppUp13.Services;
+﻿using Microsoft.OpenApi.Models;
+using System.Reflection;
+using WeatherAppUp13.Services;
 
 namespace WeatherAppUp13
 {
@@ -21,7 +23,15 @@ namespace WeatherAppUp13
             services.AddControllers();
 
             services.AddEndpointsApiExplorer();
-            services.AddSwaggerGen();
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "WeatherAppUp13 API", Version = "v1" });
+
+                // Specify the path to the XML documentation file
+                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                c.IncludeXmlComments(xmlPath);
+            });
 
             services.AddTransient<IWeatherService, WeatherService>();
             services.AddTransient<IGeocodingService, GeocodingService>();

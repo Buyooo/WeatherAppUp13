@@ -10,12 +10,23 @@ namespace WeatherAppUp13.Controllers
         private readonly ILogger<WeatherController> _logger;
         private readonly IWeatherService _weatherService;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="WeatherController"/> class.
+        /// </summary>
+        /// <param name="logger">The logger.</param>
+        /// <param name="weatherService">The weather service.</param>
         public WeatherController(ILogger<WeatherController> logger, IWeatherService weatherService)
         {
             _logger = logger;
             _weatherService = weatherService;
         }
 
+        /// <summary>
+        /// Retrieves weather point grid data based on latitude and longitude coordinates.
+        /// </summary>
+        /// <param name="latitude">The latitude coordinate.</param>
+        /// <param name="longitude">The longitude coordinate.</param>
+        /// <returns>A JSON response containing weather point grid data.</returns>
         [HttpPost("GridData")]
         public async Task<IActionResult> GetWeatherPointGridDataAsync(double latitude, double longitude)
         {
@@ -42,6 +53,13 @@ namespace WeatherAppUp13.Controllers
             }
         }
 
+        /// <summary>
+        /// Retrieves weather forecast grid data based on office, gridX, and gridY coordinates.
+        /// </summary>
+        /// <param name="office">The office identifier.</param>
+        /// <param name="gridX">The gridX coordinate.</param>
+        /// <param name="gridY">The gridY coordinate.</param>
+        /// <returns>A JSON response containing weather forecast grid data.</returns>
         [HttpPost("GridForecast")]
         public async Task<IActionResult> GetWeatherForecastGridAsync(string office, double gridX, double gridY)
         {
