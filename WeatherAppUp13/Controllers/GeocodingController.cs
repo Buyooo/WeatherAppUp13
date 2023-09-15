@@ -21,6 +21,7 @@ namespace WeatherAppUp13.Controllers
         {
             if (string.IsNullOrEmpty(address))
             {
+                _logger.LogError("Address parameter cannot be null or empty.");
                 return BadRequest("Address parameter cannot be null or empty.");
             }
 
@@ -36,22 +37,24 @@ namespace WeatherAppUp13.Controllers
             }
             catch (Exception ex)
             {
+                _logger.LogError(ex, "An error occurred while geocoding one-line address.");
                 return StatusCode(500, $"Internal Server Error: {ex.Message}");
             }
         }
 
         [HttpGet("GeocodeAddress")]
         [HttpGet]
-        public async Task<IActionResult> GeocodeAddress(string address)
+        public async Task<IActionResult> GeocodeAddress(string? street = null, string? city = null, string? state = null, string? zip = null)
         {
-            if (string.IsNullOrEmpty(address))
+            if (string.IsNullOrEmpty(street) && string.IsNullOrEmpty(city) && string.IsNullOrEmpty(state) && string.IsNullOrEmpty(zip))
             {
-                return BadRequest("Address parameter cannot be null or empty.");
+                _logger.LogError("At least one parameter (street, city, state, or zip) must be provided.");
+                return BadRequest("At least one parameter (street, city, state, or zip) must be provided.");
             }
 
             try
             {
-                var jsonResponse = await _geocodingService.GeocodeAddress(address);
+                var jsonResponse = await _geocodingService.GeocodeAddress(street, city, state, zip);
                 return new ContentResult
                 {
                     Content = jsonResponse,
@@ -61,8 +64,10 @@ namespace WeatherAppUp13.Controllers
             }
             catch (Exception ex)
             {
+                _logger.LogError(ex, "An error occurred while geocoding address.");
                 return StatusCode(500, $"Internal Server Error: {ex.Message}");
             }
         }
+
     }
 }
