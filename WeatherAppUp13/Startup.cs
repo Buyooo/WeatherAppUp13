@@ -25,6 +25,7 @@ namespace WeatherAppUp13
 
             services.AddTransient<IWeatherService, WeatherService>();
             services.AddTransient<IGeocodingService, GeocodingService>();
+            services.AddTransient<IAddressCoordinatesParser, AddressCoordinatesParser>();
 
             services.AddHttpClient("GeocodingClient", client =>
             {
