@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using WeatherAppUp13.Services;
 
 namespace WeatherAppUp13.Controllers
 {
@@ -6,28 +7,59 @@ namespace WeatherAppUp13.Controllers
     [Route("[controller]")]
     public class WeatherForecastController : ControllerBase
     {
-        private static readonly string[] Summaries = new[]
-        {
-        "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-    };
+        private readonly IWeatherService _weatherService;
 
-        private readonly ILogger<WeatherForecastController> _logger;
-
-        public WeatherForecastController(ILogger<WeatherForecastController> logger)
+        public WeatherForecastController(IWeatherService weatherService)
         {
-            _logger = logger;
+            _weatherService = weatherService ?? throw new ArgumentNullException(nameof(weatherService));
         }
 
-        [HttpGet(Name = "GetWeatherForecast")]
-        public IEnumerable<WeatherForecast> Get()
+        [HttpPost("GridData")]
+        public async Task<IActionResult> GetWeatherPointGridDataAsync(double latitude, double longitude)
         {
-            return Enumerable.Range(1, 5).Select(index => new WeatherForecast
+            if (latitude < -90 || latitude > 90 || longitude < -180 || longitude > 180)
             {
-                Date = DateTime.Now.AddDays(index),
-                TemperatureC = Random.Shared.Next(-20, 55),
-                Summary = Summaries[Random.Shared.Next(Summaries.Length)]
-            })
-            .ToArray();
+                return BadRequest("Invalid latitude or longitude values.");
+            }
+
+            try
+            {
+                var jsonResponse = await _weatherService.GetWeatherPointGridDataAsync(latitude, longitude);
+                return new ContentResult
+                {
+                    Content = jsonResponse,
+                    ContentType = "application/json",
+                    StatusCode = 200
+                };
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal Server Error: {ex.Message}");
+            }
+        }
+
+        [HttpPost("GridForecast")]
+        public async Task<IActionResult> GetWeatherForecastGridAsync(string office, double gridX, double gridY)
+        {
+            if (string.IsNullOrEmpty(office) || gridX < 0 || gridY < 0)
+            {
+                return BadRequest("Invalid input parameters.");
+            }
+
+            try
+            {
+                var jsonResponse = await _weatherService.GetWeatherForecastGridAsync(office, gridX, gridY);
+                return new ContentResult
+                {
+                    Content = jsonResponse,
+                    ContentType = "application/json",
+                    StatusCode = 200
+                };
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal Server Error: {ex.Message}");
+            }
         }
     }
 }

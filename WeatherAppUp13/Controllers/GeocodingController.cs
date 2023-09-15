@@ -1,54 +1,39 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using WeatherAppUp13.Services;
 
 namespace WeatherAppUp13.Controllers
 {
     [ApiController]
-    [Route("[controller]/[action]")]
+    [Route("[controller]")]
     public class GeocodingController : ControllerBase
     {
-        private const string GeocodingApiUrl = "https://geocoding.geo.census.gov/geocoder/locations/onelineaddress";
+        private readonly IGeocodingService _geocodingService;
 
-        private readonly IHttpClientFactory _httpClientFactory;
-
-        public GeocodingController(IHttpClientFactory httpClientFactory)
+        public GeocodingController(IGeocodingService geocodingService)
         {
-            _httpClientFactory = httpClientFactory;
+            _geocodingService = geocodingService ?? throw new ArgumentNullException(nameof(geocodingService));
         }
 
         [HttpGet("GeocodeOneLineAddress")]
         public async Task<IActionResult> GeocodeOneLineAddress(string address)
         {
+            if (string.IsNullOrEmpty(address))
+            {
+                return BadRequest("Address parameter cannot be null or empty.");
+            }
+
             try
             {
-                // Create a query string with the required parameters
-                var queryString = $"locations/onelineaddress?address={Uri.EscapeDataString(address)}&benchmark=2020&format=json";
-
-                // Create an HttpClient instance using the HttpClientFactory
-                var httpClient = _httpClientFactory.CreateClient("GeocodingClient");
-
-                // Send the GET request to the Geocoding API
-                var response = await httpClient.GetAsync($"{queryString}");
-
-                // Check if the request was successful
-                if (response.IsSuccessStatusCode)
+                var jsonResponse = await _geocodingService.GeocodeOneLineAddress(address);
+                return new ContentResult
                 {
-                    // Read the JSON response
-                    var jsonResponse = await response.Content.ReadAsStringAsync();
-
-                    // Deserialize the JSON response into a strongly-typed object if needed
-                    // For now, let's return the JSON as-is
-                    return Ok(jsonResponse);
-                }
-                else
-                {
-                    // Handle the error response if the request was not successful
-                    var errorMessage = await response.Content.ReadAsStringAsync();
-                    return BadRequest($"Error: {errorMessage}");
-                }
+                    Content = jsonResponse,
+                    ContentType = "application/json",
+                    StatusCode = 200
+                };
             }
             catch (Exception ex)
             {
-                // Handle any exceptions that occur during the request
                 return StatusCode(500, $"Internal Server Error: {ex.Message}");
             }
         }
@@ -57,37 +42,23 @@ namespace WeatherAppUp13.Controllers
         [HttpGet]
         public async Task<IActionResult> GeocodeAddress(string address)
         {
+            if (string.IsNullOrEmpty(address))
+            {
+                return BadRequest("Address parameter cannot be null or empty.");
+            }
+
             try
             {
-                // Create a query string with the required parameters
-                var queryString = $"locations/address?zip={Uri.EscapeDataString(address)}&benchmark=2020&format=json";
-
-                // Create an HttpClient instance using the HttpClientFactory
-                var httpClient = _httpClientFactory.CreateClient("GeocodingClient");
-
-                // Send the GET request to the Geocoding API
-                var response = await httpClient.GetAsync($"{queryString}");
-
-                // Check if the request was successful
-                if (response.IsSuccessStatusCode)
+                var jsonResponse = await _geocodingService.GeocodeAddress(address);
+                return new ContentResult
                 {
-                    // Read the JSON response
-                    var jsonResponse = await response.Content.ReadAsStringAsync();
-
-                    // Deserialize the JSON response into a strongly-typed object if needed
-                    // For now, let's return the JSON as-is
-                    return Ok(jsonResponse);
-                }
-                else
-                {
-                    // Handle the error response if the request was not successful
-                    var errorMessage = await response.Content.ReadAsStringAsync();
-                    return BadRequest($"Error: {errorMessage}");
-                }
+                    Content = jsonResponse,
+                    ContentType = "application/json",
+                    StatusCode = 200
+                };
             }
             catch (Exception ex)
             {
-                // Handle any exceptions that occur during the request
                 return StatusCode(500, $"Internal Server Error: {ex.Message}");
             }
         }
