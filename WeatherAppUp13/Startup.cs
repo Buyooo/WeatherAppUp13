@@ -1,10 +1,4 @@
-﻿using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Configuration;
-using System;
-
-namespace WeatherAppUp13
+﻿namespace WeatherAppUp13
 {
     public class Startup
     {
@@ -42,7 +36,7 @@ namespace WeatherAppUp13
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllers();
+                endpoints.MapControllers();                
             });
         }
     }

@@ -3,7 +3,7 @@
 namespace WeatherAppUp13.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("[controller]/[action]")]
     public class GeocodingController : ControllerBase
     {
         private const string GeocodingApiUrl = "https://geocoding.geo.census.gov/geocoder/locations/onelineaddress";
