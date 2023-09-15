@@ -13,6 +13,11 @@ namespace WeatherAppUp13
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddLogging(builder =>
+            {
+                builder.AddConsole();
+            });
+
             services.AddControllers();
 
             services.AddEndpointsApiExplorer();

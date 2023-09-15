@@ -5,13 +5,15 @@ namespace WeatherAppUp13.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class WeatherForecastController : ControllerBase
+    public class WeatherController : ControllerBase
     {
+        private readonly ILogger<WeatherController> _logger;
         private readonly IWeatherService _weatherService;
 
-        public WeatherForecastController(IWeatherService weatherService)
+        public WeatherController(ILogger<WeatherController> logger, IWeatherService weatherService)
         {
-            _weatherService = weatherService ?? throw new ArgumentNullException(nameof(weatherService));
+            _logger = logger;
+            _weatherService = weatherService;
         }
 
         [HttpPost("GridData")]
@@ -19,6 +21,7 @@ namespace WeatherAppUp13.Controllers
         {
             if (latitude < -90 || latitude > 90 || longitude < -180 || longitude > 180)
             {
+                _logger.LogError("Invalid latitude or longitude values.");
                 return BadRequest("Invalid latitude or longitude values.");
             }
 
@@ -34,6 +37,7 @@ namespace WeatherAppUp13.Controllers
             }
             catch (Exception ex)
             {
+                _logger.LogError(ex, "An error occurred while getting weather point grid data.");
                 return StatusCode(500, $"Internal Server Error: {ex.Message}");
             }
         }
@@ -43,6 +47,7 @@ namespace WeatherAppUp13.Controllers
         {
             if (string.IsNullOrEmpty(office) || gridX < 0 || gridY < 0)
             {
+                _logger.LogError("Invalid input parameters.");
                 return BadRequest("Invalid input parameters.");
             }
 
@@ -58,6 +63,7 @@ namespace WeatherAppUp13.Controllers
             }
             catch (Exception ex)
             {
+                _logger.LogError(ex, "An error occurred while getting weather forecast grid data.");
                 return StatusCode(500, $"Internal Server Error: {ex.Message}");
             }
         }

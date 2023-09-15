@@ -8,10 +8,12 @@ namespace WeatherAppUp13.Controllers
     public class GeocodingController : ControllerBase
     {
         private readonly IGeocodingService _geocodingService;
+        private readonly ILogger<GeocodingController> _logger;
 
-        public GeocodingController(IGeocodingService geocodingService)
+        public GeocodingController(IGeocodingService geocodingService, ILogger<GeocodingController> logger)
         {
             _geocodingService = geocodingService ?? throw new ArgumentNullException(nameof(geocodingService));
+            _logger = logger;
         }
 
         [HttpGet("GeocodeOneLineAddress")]
