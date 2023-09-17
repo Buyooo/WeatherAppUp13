@@ -33,7 +33,6 @@ namespace WeatherAppUp13.Services
             }
             catch (Exception ex)
             {
-                // Handle parsing errors or missing data
                 Console.WriteLine($"Error parsing coordinates: {ex.Message}");
                 throw;
             }
@@ -43,17 +42,14 @@ namespace WeatherAppUp13.Services
         {
             try
             {
-                // Deserialize the JSON into the WeatherInfo object
                 var weatherInfo = JsonConvert.DeserializeObject<WeatherInfo>(json);
 
-                // Access the forecast URL from the parsed object
                 string forecastUrl = weatherInfo?.Properties?.ForecastUrl;
 
                 return forecastUrl;
             }
             catch (Exception ex)
             {
-                // Handle any exceptions that occur during parsing
                 Console.WriteLine($"Error parsing JSON: {ex.Message}");
                 return null;
             }
@@ -68,15 +64,12 @@ namespace WeatherAppUp13.Services
 
                 if (urlParts.Length >= 4)
                 {
-                    // The office is the third part of the URL
                     string office = urlParts[4];
 
-                    // The gridX and gridY are the fourth part of the URL, split by ','
                     string[] gridParts = urlParts[5].Split(',');
 
                     if (gridParts.Length == 2 && int.TryParse(gridParts[0], out int gridX) && int.TryParse(gridParts[1], out int gridY))
                     {
-                        // Create and return the ForecastUrlInfo object
                         return new ForecastUrlInfo
                         {
                             Office = office,
@@ -86,7 +79,6 @@ namespace WeatherAppUp13.Services
                     }
                 }
 
-                // Return null if parsing fails
                 return null;
             }
             catch (Exception ex)

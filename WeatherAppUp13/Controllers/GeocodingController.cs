@@ -45,10 +45,8 @@ namespace WeatherAppUp13.Controllers
                     return BadRequest("Address parameter cannot be null or empty.");
                 }
 
-                // Geocode the address to get latitude and longitude
                 var geocodeResponse = await _geocodingService.GeocodeOneLineAddress(address);
 
-                // Parse the geocodeResponse to retrieve latitude and longitude
                 (double Latitude, double Longitude) geocodeResult;
 
                 try

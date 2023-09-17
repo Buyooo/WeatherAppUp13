@@ -14,7 +14,6 @@ namespace WeatherAppUp13.Services
                 var uom = obj["uom"]?.Value<string>();
                 if (!string.IsNullOrEmpty(uom))
                 {
-                    // Replace the unit code with human-readable unit
                     switch (uom)
                     {
                         case "wmoUnit:degC":
@@ -29,7 +28,6 @@ namespace WeatherAppUp13.Services
                         case "wmoUnit:km_h-1":
                             uom = "km/h";
                             break;
-                            // Add more mappings as needed
                     }
                     obj["uom"] = uom;
                 }

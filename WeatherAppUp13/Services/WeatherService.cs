@@ -13,32 +13,25 @@
         {
             try
             {
-                // Create an HttpClient instance using the factory
                 var httpClient = _httpClientFactory.CreateClient("WeatherForecastClient");
 
-                // Construct the full URL for the API endpoint
                 string apiUrl = $"points/{latitude},{longitude}";
 
-                // Send an HTTP GET request to the API endpoint
                 HttpResponseMessage response = await httpClient.GetAsync(apiUrl);
 
-                // Check if the response is successful (status code 200)
                 if (response.IsSuccessStatusCode)
                 {
-                    // Read the response content as a JSON string
                     string responseBody = await response.Content.ReadAsStringAsync();
 
                     return responseBody;
                 }
                 else
                 {
-                    // Handle the case where the request was not successful
                     throw new Exception($"Error: {response.StatusCode}");
                 }
             }
             catch (Exception ex)
             {
-                // Handle any exceptions that may occur during the request
                 throw new Exception($"Error: {ex.Message}");
             }
         }        
@@ -47,32 +40,25 @@
         {
             try
             {
-                // Create an HttpClient instance using the factory
                 var httpClient = _httpClientFactory.CreateClient("WeatherForecastClient");
 
-                // Construct the full URL for the API endpoint
                 string apiUrl = $"gridpoints/{office}/{gridX},{gridY}";
 
-                // Send an HTTP GET request to the API endpoint
                 HttpResponseMessage response = await httpClient.GetAsync(apiUrl);
 
-                // Check if the response is successful (status code 200)
                 if (response.IsSuccessStatusCode)
                 {
-                    // Read the response content as a JSON string
                     string responseBody = await response.Content.ReadAsStringAsync();
 
                     return responseBody;
                 }
                 else
                 {
-                    // Handle the case where the request was not successful
                     throw new Exception($"Error: {response.StatusCode}");
                 }
             }
             catch (Exception ex)
             {
-                // Handle any exceptions that may occur during the request
                 throw new Exception($"Error: {ex.Message}");
             }
         }
