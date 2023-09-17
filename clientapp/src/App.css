@@ -39,3 +39,8 @@ body {
   font-size: calc(10px + 1vmin); /* Adjust font size for the footer */
   color: white;
 }
+
+.address-box {
+  margin: 0px 20px;
+  width: 500px;
+}

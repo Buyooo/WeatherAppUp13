@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import './App.css';
 import { ForecastData } from './Models/ForecastModel';
 import headerImage from './Assets/header-image.jpeg';
+import Forecast from './Components/Forecast';
 
 function App() {
   // State variables
@@ -52,30 +53,12 @@ function App() {
             id="address"
             value={address}
             onChange={handleAddressChange}
+            className='address-box'
           />
           <button onClick={fetchForecast}>Fetch Forecast</button>
         </div>
 
-        {forecast && (
-          <div>
-            <h2>Forecast Data</h2>
-            <p>UpdateTime: {forecast.Properties.UpdateTime}</p>
-            <p>ValidTimes: {forecast.Properties.ValidTimes}</p>
-
-            {/* Display other properties as needed */}
-
-            {/* Example for Temperature */}
-            <h3>Temperature</h3>
-            <p>UOM: {forecast.Properties.Temperature.uom}</p>
-            <ul>
-              {forecast.Properties.Temperature.Values.map((item, index) => (
-                <li key={index}>
-                  ValidTime: {item.ValidTime}, Value: {item.Value}
-                </li>
-              ))}
-            </ul>
-          </div>
-        )}
+        <Forecast forecast={forecast} />
       </div>
 
       <footer className="App-footer">
