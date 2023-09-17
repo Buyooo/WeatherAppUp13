@@ -44,3 +44,19 @@ body {
   margin: 0px 20px;
   width: 500px;
 }
+
+/* Updated CSS rules for a single row of visible panels */
+.temperature-grid {
+  display: flex;
+  overflow: auto; /* Enable horizontal scrolling for the entire row */
+  width: 100%; /* Ensure the row spans the full width of the container */
+}
+
+.temperature-panel {
+  flex: 0 0 auto; /* Allow panels to shrink to their content width */
+  margin-right: 10px; /* Add spacing between panels */
+  padding: 10px;
+  border: 1px solid #ccc; /* Add a border for each panel */
+  white-space: nowrap; /* Prevent text from wrapping within panels */
+}
+
