@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './App.css';
 import { ForecastData } from './Models/ForecastModel';
+import headerImage from './Assets/header-image.jpeg';
 
 function App() {
   // State variables
@@ -11,7 +12,7 @@ function App() {
   const handleAddressChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setAddress(event.target.value);
   };
-  
+
   // Function to fetch forecast data from the API
   const fetchForecast = async () => {
     try {
@@ -30,7 +31,20 @@ function App() {
 
   return (
     <div className="App">
-      <header className="App-header">
+      <header
+        className="App-header"
+        style={{
+          backgroundImage: `url(${headerImage})`, // Set the background image
+          backgroundSize: 'cover', // Adjust the background size as needed
+          backgroundRepeat: 'no-repeat', // Prevent image repetition
+        }}
+      >
+        <div>
+          {/* The rest of your header content */}
+        </div>
+      </header>
+
+      <div className="App-body">
         <div>
           <label htmlFor="address">Enter Address:</label>
           <input
@@ -41,17 +55,15 @@ function App() {
           />
           <button onClick={fetchForecast}>Fetch Forecast</button>
         </div>
-      </header>
 
-      <div className="App-body">
         {forecast && (
           <div>
             <h2>Forecast Data</h2>
             <p>UpdateTime: {forecast.Properties.UpdateTime}</p>
             <p>ValidTimes: {forecast.Properties.ValidTimes}</p>
-            
+
             {/* Display other properties as needed */}
-            
+
             {/* Example for Temperature */}
             <h3>Temperature</h3>
             <p>UOM: {forecast.Properties.Temperature.uom}</p>
