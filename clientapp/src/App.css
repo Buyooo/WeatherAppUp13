@@ -1,21 +1,14 @@
-.App {
-  text-align: center;
+/* Set a white background for the entire app */
+body {
+  background-color: white;
+  margin: 0;
+  padding: 0;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
+/* Style the header section */
 .App-header {
   background-color: #282c34;
-  min-height: 100vh;
+  min-height: 20vh; /* Adjust the height as needed */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -24,15 +17,25 @@
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+/* Style the body section */
+.App-body {
+  min-height: 60vh; /* Adjust the height as needed */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 1vmin); /* Adjust font size for the body */
+  padding: 20px; /* Add padding for content */
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+/* Style the footer section */
+.App-footer {
+  background-color: #282c34;
+  min-height: 20vh; /* Adjust the height as needed */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 1vmin); /* Adjust font size for the footer */
+  color: white;
 }
