@@ -1,7 +1,4 @@
-﻿using NUnit.Framework;
-using WeatherAppUp13.Models;
-
-namespace WeatherAppUp13.Services.Tests
+﻿namespace WeatherAppUp13.Services.Tests
 {
     [TestFixture]
     public class AddressCoordinatesParserTests

@@ -1,6 +1,4 @@
-﻿using System.Text.Json;
-
-namespace WeatherAppUp13.Services
+﻿namespace WeatherAppUp13.Services
 {
     public class WeatherService : IWeatherService
     {

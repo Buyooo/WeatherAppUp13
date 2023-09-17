@@ -5,10 +5,10 @@ namespace WeatherAppUp13.Models
     public class WeatherInfo
     {
         [JsonProperty("properties")]
-        public WeatherProperties Properties { get; set; }
+        public WeatherGridProperties Properties { get; set; }
     }
 
-    public class WeatherProperties
+    public class WeatherGridProperties
     {
         [JsonProperty("forecast")]
         public string ForecastUrl { get; set; }

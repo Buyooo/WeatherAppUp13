@@ -20,6 +20,16 @@ namespace WeatherAppUp13
                 builder.AddConsole();
             });
 
+            services.AddCors(options =>
+            {
+                options.AddDefaultPolicy(builder =>
+                {
+                    builder.AllowAnyOrigin() // Allow requests from any origin
+                           .AllowAnyMethod() // Allow any HTTP method
+                           .AllowAnyHeader(); // Allow any HTTP headers
+                });
+            });
+
             services.AddControllers();
 
             services.AddEndpointsApiExplorer();
@@ -60,6 +70,7 @@ namespace WeatherAppUp13
             }
 
             app.UseRouting();
+            app.UseCors();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

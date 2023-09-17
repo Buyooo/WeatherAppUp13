@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
-
-namespace WeatherAppUp13.Services
+﻿namespace WeatherAppUp13.Services
 {
     public interface IGeocodingService
     {

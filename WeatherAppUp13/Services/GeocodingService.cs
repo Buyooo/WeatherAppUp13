@@ -1,8 +1,4 @@
-﻿using System;
-using System.Net.Http;
-using System.Threading.Tasks;
-
-namespace WeatherAppUp13.Services
+﻿namespace WeatherAppUp13.Services
 {
     public class GeocodingService : IGeocodingService
     {

@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
+using WeatherAppUp13.Models;
 using WeatherAppUp13.Services;
 
 namespace WeatherAppUp13.Controllers
@@ -73,11 +75,13 @@ namespace WeatherAppUp13.Controllers
                     return StatusCode(500, "Internal Server Error: Unable to parse forecast properties.");
                 }
 
-                var forecastData = await _weatherService.GetWeatherForecastGridAsync(forecastUrlInfo.Office!, forecastUrlInfo.GridX, forecastUrlInfo.GridY);
+                var completeForecastData = await _weatherService.GetWeatherForecastGridAsync(forecastUrlInfo.Office!, forecastUrlInfo.GridX, forecastUrlInfo.GridY);
+
+                var forecast = JsonConvert.DeserializeObject<WeatherForecast>(completeForecastData);
 
                 return new ContentResult
                 {
-                    Content = forecastData,
+                    Content = JsonConvert.SerializeObject(forecast),
                     ContentType = "application/json",
                     StatusCode = 200
                 };
