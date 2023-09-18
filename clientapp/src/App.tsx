@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import './App.css';
-import { ForecastData } from './Models/ForecastModel';
+import { WeatherDataArray } from './Models/ForecastModel';
 import headerImage from './Assets/header-image.jpeg';
-import Forecast from './Components/Forecast';
+import {WeatherDisplay} from './Components/WeatherDisplay'; // Import the WeatherDisplay component
 
 function App() {
   // State variables
   const [address, setAddress] = useState<string>('');
-  const [forecast, setForecast] = useState<ForecastData | null>(null);
+  const [forecast, setForecast] = useState<WeatherDataArray | null>(null);
 
   // Function to handle address input changes
   const handleAddressChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -20,7 +20,7 @@ function App() {
       const response = await fetch(`http://localhost:5200/Geocoding/Get7DayForecast?address=${encodeURIComponent(address)}`);
       if (response.ok) {
         const data = await response.json();
-        setForecast(data as ForecastData);
+        setForecast(data as WeatherDataArray);
       } else {
         // Handle error response
         console.error('Error fetching forecast data');
@@ -58,7 +58,8 @@ function App() {
           <button onClick={fetchForecast}>Fetch Forecast</button>
         </div>
 
-        <Forecast forecast={forecast} />
+        {/* Render the WeatherDisplay component with the forecast data */}
+        {forecast && <WeatherDisplay weatherDataArray={forecast} />}
       </div>
 
       <footer className="App-footer">
