@@ -1,0 +1,75 @@
+/* Set a white background for the entire app */
+body {
+  background-color: white;
+  margin: 0;
+  padding: 0;
+}
+
+/* Style the header section */
+.App-header {
+  background-color: #282c34;
+  min-height: 20vh; /* Adjust the height as needed */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+/* Style the body section */
+.App-body {
+  min-height: 60vh; /* Adjust the height as needed */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 1vmin); /* Adjust font size for the body */
+  padding: 20px; /* Add padding for content */
+}
+
+/* Style the footer section */
+.App-footer {
+  background-color: #282c34;
+  min-height: 20vh; /* Adjust the height as needed */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 1vmin); /* Adjust font size for the footer */
+  color: white;
+}
+
+.address-box {
+  margin: 20px;
+  width: 500px;
+}
+
+.weather-display {
+  display: flex;
+  gap: 20px;
+  justify-content: space-between;
+}
+
+.weather-item {
+  flex-basis: calc(33.33% - 20px);
+  border: 1px solid #ddd;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+.property-item {
+  display: flex;
+  flex-direction: column;
+  border-top: 1px solid #ddd;
+  padding: 10px;
+}
+
+.property-header {
+  font-weight: bold;
+}
+
+.property-value {
+  margin-top: 5px;
+}
+
