@@ -41,6 +41,35 @@ body {
 }
 
 .address-box {
-  margin: 0px 20px;
+  margin: 20px;
   width: 500px;
 }
+
+.weather-display {
+  display: flex;
+  gap: 20px;
+  justify-content: space-between;
+}
+
+.weather-item {
+  flex-basis: calc(33.33% - 20px);
+  border: 1px solid #ddd;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+.property-item {
+  display: flex;
+  flex-direction: column;
+  border-top: 1px solid #ddd;
+  padding: 10px;
+}
+
+.property-header {
+  font-weight: bold;
+}
+
+.property-value {
+  margin-top: 5px;
+}
+

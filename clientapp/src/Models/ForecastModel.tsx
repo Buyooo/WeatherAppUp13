@@ -1,7 +1,9 @@
 export interface WeatherData {
-    DewpointAverage: number;
+    Date: string;
     MaxTemperatureAverage: number;
+    TemperatureAverage: number;
     MinTemperatureAverage: number;
+    DewpointAverage: number;    
     RelativeHumidityAverage: number;
     HeatIndexAverage: number;
     WindChillAverage: number;
@@ -10,8 +12,6 @@ export interface WeatherData {
     WindSpeedAverage: number;
     WindGustAverage: number;
     ProbabilityOfPrecipitationAverage: number;
-    Date: string;
-    TemperatureAverage: number;
   }
   
   // Define an array type using the WeatherData interface
