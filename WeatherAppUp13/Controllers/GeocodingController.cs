@@ -77,9 +77,11 @@ namespace WeatherAppUp13.Controllers
 
                 var forecast = JsonConvert.DeserializeObject<WeatherForecast>(completeForecastData);
 
+                var dailyAverages = _weatherService.CalculateUniqueDailyAverages(forecast!.Properties);
+
                 return new ContentResult
                 {
-                    Content = JsonConvert.SerializeObject(forecast),
+                    Content = JsonConvert.SerializeObject(dailyAverages),
                     ContentType = "application/json",
                     StatusCode = 200
                 };
