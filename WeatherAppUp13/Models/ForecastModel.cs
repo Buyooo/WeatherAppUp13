@@ -60,7 +60,8 @@ namespace WeatherAppUp13.Models
     public class WeatherMeasurement
     {
         [JsonProperty("ValidTime")]
-        public string ValidTime { get; set; }
+        [JsonConverter(typeof(CustomDateTimeConverter))]
+        public DateTime ValidTime { get; set; }
 
         [JsonProperty("Value")]
         public double? Value { get; set; }
